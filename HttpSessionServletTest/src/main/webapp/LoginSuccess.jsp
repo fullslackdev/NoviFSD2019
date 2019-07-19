@@ -2,8 +2,12 @@
 
 <%
 //allow access only if session exists
-String firstname = null;
-String lastname = null;
+String firstName = null;
+String lastName = null;
+String email = null;
+String groupName = null;
+int userID = 0;
+int groupID = 0;
 HttpSession session = request.getSession(false);
 Cookie[] cookies = request.getCookies();
 if (session != null) {
@@ -12,8 +16,12 @@ if (session != null) {
         request.getSession(true);
         response.sendRedirect("login.html");
     } else {
-        firstname = (String) session.getAttribute("firstname");
-        lastname = (String) session.getAttribute("lastname");
+        firstName = (String) session.getAttribute("firstname");
+        lastName = (String) session.getAttribute("lastname");
+        email = (String) session.getAttribute("email");
+        groupName = (String) session.getAttribute("groupname");
+        userID = (int) session.getAttribute("userid");
+        groupID = (int) session.getAttribute("groupid");
     }
 } else {
 	if (cookies != null) {
@@ -93,10 +101,16 @@ if (cookies != null && session != null) {
 </head>
 
 <body>
-    <h3>Hi <%=firstname%> <%=lastname%>, Login successful. Your Session ID=<%=sessionID%></h3>
-    <br>
-    Username = <%=userName%>
-    <br>
+    <h3>Hi <%=firstName%> <%=lastName%>, Login successful. Your Session ID=<%=sessionID%></h3>
+    <ul>
+    <li>Username: <%=userName%></li>
+    <li>First name: <%=firstName%></li>
+    <li>Last name: <%=lastName%></li>
+    <li>Email: <%=email%></li>
+    <li>User ID: <%=userID%></li>
+    <li>Group ID: <%=groupID%></li>
+    <li>Group name: <%=groupName%></li>
+    </ul>
     <a href="CheckoutPage.jsp">Checkout Page</a>
     <form action="LogoutServlet" method="post">
         <input type="submit" value="Logout">

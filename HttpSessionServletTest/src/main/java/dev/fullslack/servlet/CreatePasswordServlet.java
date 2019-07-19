@@ -16,7 +16,6 @@ import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 
 @WebServlet("/PasswordServlet")
@@ -25,7 +24,8 @@ public class CreatePasswordServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String pwd = request.getParameter("pass");
+        //String pwd = request.getParameter("pass");
+        byte[] pwd = request.getParameter("pass").getBytes(StandardCharsets.UTF_8);
         byte[] salt = generateSalt();
         byte[] pwdHash = createPasswordHash(pwd,salt);
         String query = "UPDATE user SET password = ?, salt = ? WHERE username = ?";
@@ -35,7 +35,11 @@ public class CreatePasswordServlet extends HttpServlet {
                 PreparedStatement pst = con.prepareStatement(query);
                 pst.setBytes(1,pwdHash);
                 pst.setBytes(2,salt);
-                pst.setString(3, pwd);
+                //pst.setString(3, pwd);
+                pst.setBytes(3, pwd);
+                pwdHash = new byte[0];
+                salt = new byte[0];
+                pwd = new byte[0];
                 pst.executeUpdate();
                 pst.close();
             }
@@ -44,12 +48,12 @@ public class CreatePasswordServlet extends HttpServlet {
         }
     }
 
-    private byte[] createPasswordHash(String pwd, byte[] salt) {
+    private byte[] createPasswordHash(byte[] pwd, byte[] salt) {
         try {
             MessageDigest digest = MessageDigest.getInstance("SHA3-512");
             digest.reset();
             digest.update(salt);
-            byte[] hashbytes = digest.digest(pwd.getBytes(StandardCharsets.UTF_8));
+            byte[] hashbytes = digest.digest(pwd);
             return hashbytes;
         } catch (NoSuchAlgorithmException ex) {
             LOGGER.error("Error Message Logged !!!",ex.getMessage(),ex);

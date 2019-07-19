@@ -34,7 +34,8 @@ public class LoginServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String user = request.getParameter("user");
-        String pwd = request.getParameter("pwd");
+        //String pwd = request.getParameter("pwd");
+        byte[] pwd = request.getParameter("pwd").getBytes(StandardCharsets.UTF_8);
         byte[] pwdHash = createPasswordHash(user,pwd);
         //debugging section
         /*if (request.getSession() != null) {
@@ -52,6 +53,8 @@ public class LoginServlet extends HttpServlet {
                 pst.setString(1, user);
                 //pst.setString(2, pwd);
                 pst.setBytes(2, pwdHash);
+                pwd = new byte[0];
+                pwdHash = new byte[0];
                 ResultSet rs = pst.executeQuery();
                 //ResultSetMetaData md = pst.getMetaData();
                 int rowcount = 0;
@@ -67,9 +70,13 @@ public class LoginServlet extends HttpServlet {
                             request.getSession().invalidate(); //invalidate current session
                             HttpSession session = request.getSession(true); //create new session ID to prevent hijacking
                             if (userActive) {
+                                session.setAttribute("username", user);
+                                session.setAttribute("userid", rs.getInt(1));
                                 session.setAttribute("firstname", rs.getString(3));
                                 session.setAttribute("lastname", rs.getString(4));
-                                session.setAttribute("username", user);
+                                session.setAttribute("email", rs.getString(5));
+                                session.setAttribute("groupid", rs.getInt(6));
+                                session.setAttribute("groupname", rs.getString(7));
                                 //setting session to expire in 30 mins
                                 //session.setMaxInactiveInterval(30*60);
                                 //setting session to expire in 60 seconds
@@ -135,7 +142,7 @@ public class LoginServlet extends HttpServlet {
         */
     }
 
-    private byte[] createPasswordHash(String username, String password) {
+    private byte[] createPasswordHash(String username, byte[] password) {
         try (Connection con = ConnectionManager.getConnection()) {
             if (con != null) {
                 PreparedStatement pst = con.prepareStatement("SELECT salt FROM user WHERE username = ?");
@@ -152,7 +159,7 @@ public class LoginServlet extends HttpServlet {
                                     MessageDigest digest = MessageDigest.getInstance("SHA3-512");
                                     digest.reset();
                                     digest.update(rs.getBytes(1));
-                                    byte[] hashbytes = digest.digest(password.getBytes(StandardCharsets.UTF_8));
+                                    byte[] hashbytes = digest.digest(password);
                                     //System.out.println("Hash: " + bytesToHex(hashbytes) + " | " + hashbytes);
                                     return hashbytes;
                                 } catch (NoSuchAlgorithmException ex) {
