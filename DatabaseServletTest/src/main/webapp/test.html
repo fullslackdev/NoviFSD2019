@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="EN">
+
+<head>
+    <meta charset="utf-8">
+    <title>AJAX Database Test</title>
+    <script>
+        function ajaxAsyncRequest(reqURL) {
+            //Creating a new XMLHttpRequest object
+            var xmlhttp;
+            if (window.XMLHttpRequest) {
+                xmlhttp = new XMLHttpRequest(); //for IE7+, Firefox, Chrome, Opera, Safari
+            } else {
+                xmlhttp = new ActiveXObject("Microsoft.XMLHTTP"); //for IE6, IE5
+            }
+            //Create a asynchronous GET request
+            xmlhttp.open("GET", reqURL, true);
+
+            //When readyState is 4 then get the server output
+            xmlhttp.onreadystatechange = function() {
+                if (xmlhttp.readyState == 4) {
+                    if (xmlhttp.status == 200) {
+                        var jsonArray = JSON.parse(xmlhttp.responseText); //JSON.parse() returns JSON object
+                        var container = document.getElementById("container");
+                        for (i = 0; i < jsonArray.length; i++) {
+                            var info = document.createElement('div');
+                            info.className = 'info';
+
+                            var ul = document.createElement('ul');
+                            info.appendChild(ul);
+
+                            var id1 = document.createElement('li');
+                            id1.className = 'id';
+                            id1.innerHTML = 'ID: '+' '+jsonArray[i].id;
+                            ul.appendChild(id1);
+
+                            var name1 = document.createElement('li');
+                            name1.className = 'name';
+                            name1.innerHTML = 'Naam: '+' '+jsonArray[i].naam;
+                            ul.appendChild(name1);
+
+                            var city = document.createElement('li');
+                            city.className = 'city';
+                            city.innerHTML = 'Woonplaats: '+' '+jsonArray[i].woonplaats;
+                            ul.appendChild(city);
+
+                            var salary = document.createElement('li');
+                            salary.className = 'salary';
+                            salary.innerHTML = 'Salaris: '+' '+jsonArray[i].salaris;
+                            ul.appendChild(salary);
+
+                            container.appendChild(info);
+                        }
+                    } else {
+                        alert('Something went wrong !!');
+                    }
+                }
+            };
+
+            xmlhttp.send(null);
+        }
+    </script>
+</head>
+
+<body>
+    <br/>
+    <input type="button" value="Show Server Time" onclick='ajaxAsyncRequest("DatabaseTestServlet")'/>
+    <br/><br/>
+    Message from server :: <br/>
+    Name: <span id="name"></span><br/>
+    Time: <span id="city"></span><br/>
+    <div id="container"></div>
+</body>
+
+</html>

@@ -1,0 +1,7 @@
+**/.idea
+**/target
+**/node_modules
+**/out
+**/*.mp3
+**/*.wav
+**/*.ogg
