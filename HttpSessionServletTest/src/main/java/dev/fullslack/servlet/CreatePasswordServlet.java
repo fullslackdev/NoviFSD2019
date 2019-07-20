@@ -1,5 +1,8 @@
 package dev.fullslack.servlet;
 
+import de.mkammerer.argon2.Argon2;
+import de.mkammerer.argon2.Argon2Factory;
+import de.mkammerer.argon2.Argon2Helper;
 import dev.fullslack.db.ConnectionManager;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -24,22 +27,36 @@ public class CreatePasswordServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        //String pwd = request.getParameter("pass");
-        byte[] pwd = request.getParameter("pass").getBytes(StandardCharsets.UTF_8);
+        String pwd = request.getParameter("pass");
+        //byte[] pwd = request.getParameter("pass").getBytes(StandardCharsets.UTF_8);
         byte[] salt = generateSalt();
-        byte[] pwdHash = createPasswordHash(pwd,salt);
+        String saltString = bytesToHex(salt);
+        //byte[] pwdHash = createPasswordHash(pwd,salt);
+        Argon2 argon2 = Argon2Factory.create(Argon2Factory.Argon2Types.ARGON2id);
+        String pwdHash = argon2.hash(8, 100 * 1024, 2, pwd);
         String query = "UPDATE user SET password = ?, salt = ? WHERE username = ?";
+
+        /*Argon2 argon2 = Argon2Factory.create(Argon2Factory.Argon2Types.ARGON2id);
+        int iterations1 = Argon2Helper.findIterations(argon2, 1000, 100 * 1024, 2);
+        int iterations2 = Argon2Helper.findIterations(argon2, 1000, 50 * 1024, 2);
+        int iterations3 = Argon2Helper.findIterations(argon2, 1000, 75 * 1024, 2);
+
+        System.out.println("Optimal number of iterations1 (100MB): " + iterations1);
+        System.out.println("Optimal number of iterations2 (50MB): " + iterations2);
+        System.out.println("Optimal number of iterations3 (75MB): " + iterations3);*/
 
         try (Connection con = ConnectionManager.getConnection()) {
             if (con != null) {
                 PreparedStatement pst = con.prepareStatement(query);
-                pst.setBytes(1,pwdHash);
-                pst.setBytes(2,salt);
-                //pst.setString(3, pwd);
-                pst.setBytes(3, pwd);
-                pwdHash = new byte[0];
-                salt = new byte[0];
-                pwd = new byte[0];
+                //pst.setBytes(1,pwdHash);
+                //pst.setBytes(2,salt);
+                //pst.setBytes(3, pwd);
+                pst.setString(1, pwdHash);
+                pst.setString(2, saltString);
+                pst.setString(3, pwd);
+                //pwdHash = new byte[0];
+                //salt = new byte[0];
+                //pwd = new byte[0];
                 pst.executeUpdate();
                 pst.close();
             }
@@ -66,5 +83,17 @@ public class CreatePasswordServlet extends HttpServlet {
         byte[] bytes = new byte[20];
         random.nextBytes(bytes);
         return bytes;
+    }
+
+    private String bytesToHex(byte[] hash) {
+        StringBuffer hexString = new StringBuffer();
+        for (int i = 0; i < hash.length; i++) {
+            String hex = Integer.toHexString(0xff & hash[i]);
+            if (hex.length() == 1) {
+                hexString.append('0');
+            }
+            hexString.append(hex);
+        }
+        return hexString.toString();
     }
 }

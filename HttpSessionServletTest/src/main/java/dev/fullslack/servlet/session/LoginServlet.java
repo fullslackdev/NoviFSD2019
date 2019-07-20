@@ -1,5 +1,7 @@
 package dev.fullslack.servlet.session;
 
+import de.mkammerer.argon2.Argon2;
+import de.mkammerer.argon2.Argon2Factory;
 import dev.fullslack.db.ConnectionManager;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -24,19 +26,19 @@ import java.time.format.DateTimeFormatter;
 @WebServlet("/LoginServlet")
 public class LoginServlet extends HttpServlet {
     private static final Logger LOGGER = LogManager.getLogger(LoginServlet.class.getName());
-    private String userID = null;
-    private String password = null;
-    private final String query = "SELECT u.id, u.active, i.firstname, i.lastname, i.email, g.id, g.name FROM user AS u " +
+    //private String userID = null;
+    //private String password = null;
+    private final String query = "SELECT u.id, u.active, u.password, i.firstname, i.lastname, i.email, g.id, g.name FROM user AS u " +
             "JOIN user_info AS i ON i.user_id = u.id " +
             "JOIN `group` AS g ON u.group_id = g.id " +
-            "WHERE u.username = ? AND u.password = ?";
+            "WHERE u.username = ?";
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String user = request.getParameter("user");
-        //String pwd = request.getParameter("pwd");
-        byte[] pwd = request.getParameter("pwd").getBytes(StandardCharsets.UTF_8);
-        byte[] pwdHash = createPasswordHash(user,pwd);
+        String pwd = request.getParameter("pwd");
+        //byte[] pwd = request.getParameter("pwd").getBytes(StandardCharsets.UTF_8);
+        //byte[] pwdHash = createPasswordHash(user,pwd);
         //debugging section
         /*if (request.getSession() != null) {
             PrintWriter writer = response.getWriter();
@@ -52,9 +54,9 @@ public class LoginServlet extends HttpServlet {
                 PreparedStatement pst = con.prepareStatement(query);
                 pst.setString(1, user);
                 //pst.setString(2, pwd);
-                pst.setBytes(2, pwdHash);
-                pwd = new byte[0];
-                pwdHash = new byte[0];
+                //pst.setBytes(2, pwdHash);
+                //pwd = new byte[0];
+                //pwdHash = new byte[0];
                 ResultSet rs = pst.executeQuery();
                 //ResultSetMetaData md = pst.getMetaData();
                 int rowcount = 0;
@@ -70,22 +72,32 @@ public class LoginServlet extends HttpServlet {
                             request.getSession().invalidate(); //invalidate current session
                             HttpSession session = request.getSession(true); //create new session ID to prevent hijacking
                             if (userActive) {
-                                session.setAttribute("username", user);
-                                session.setAttribute("userid", rs.getInt(1));
-                                session.setAttribute("firstname", rs.getString(3));
-                                session.setAttribute("lastname", rs.getString(4));
-                                session.setAttribute("email", rs.getString(5));
-                                session.setAttribute("groupid", rs.getInt(6));
-                                session.setAttribute("groupname", rs.getString(7));
-                                //setting session to expire in 30 mins
-                                //session.setMaxInactiveInterval(30*60);
-                                //setting session to expire in 60 seconds
-                                session.setMaxInactiveInterval(60);
-                                Cookie userName = new Cookie("user", user);
-                                //userName.setMaxAge(30*60);
-                                userName.setMaxAge(60);
-                                response.addCookie(userName);
-                                response.sendRedirect("LoginSuccess.jsp");
+                                String pwdHash = rs.getString(3);
+                                Argon2 argon2 = Argon2Factory.create(Argon2Factory.Argon2Types.ARGON2id);
+                                boolean pwdCorrect = argon2.verify(pwdHash, pwd);
+                                if (pwdCorrect) {
+                                    session.setAttribute("username", user);
+                                    session.setAttribute("userid", rs.getInt(1));
+                                    session.setAttribute("firstname", rs.getString(4));
+                                    session.setAttribute("lastname", rs.getString(5));
+                                    session.setAttribute("email", rs.getString(6));
+                                    session.setAttribute("groupid", rs.getInt(7));
+                                    session.setAttribute("groupname", rs.getString(8));
+                                    //setting session to expire in 30 mins
+                                    //session.setMaxInactiveInterval(30*60);
+                                    //setting session to expire in 60 seconds
+                                    session.setMaxInactiveInterval(60);
+                                    Cookie userName = new Cookie("user", user);
+                                    //userName.setMaxAge(30*60);
+                                    userName.setMaxAge(60);
+                                    response.addCookie(userName);
+                                    response.sendRedirect("LoginSuccess.jsp");
+                                } else {
+                                    RequestDispatcher rd = getServletContext().getRequestDispatcher("/login.html");
+                                    PrintWriter writer = response.getWriter();
+                                    writer.println("<font color=red>Either password or username is not in database!</font>");
+                                    rd.include(request, response);
+                                }
                             } else {
                                 RequestDispatcher rd = getServletContext().getRequestDispatcher("/login.html");
                                 PrintWriter writer = response.getWriter();
@@ -108,7 +120,6 @@ public class LoginServlet extends HttpServlet {
                 rs.close();
                 pst.close();
             } else {
-                userID = null;
                 RequestDispatcher rd = getServletContext().getRequestDispatcher("/login.html");
                 PrintWriter writer = response.getWriter();
                 writer.println("<font color=red>No database connection!</font>");

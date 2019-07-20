@@ -62,3 +62,6 @@ The first Java JSP and Servlet tutorial I followed. Enhanced with a filter to ge
 
 ### TicTacToe
 *insert description*
+
+### TwoFactorAuthTest
+Local Java program for testing of two factor authentication (2FA) using Google Authenticator. Includes a QR Code generator using Google Chart API.
