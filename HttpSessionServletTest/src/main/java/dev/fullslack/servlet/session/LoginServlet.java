@@ -28,7 +28,7 @@ public class LoginServlet extends HttpServlet {
     private static final Logger LOGGER = LogManager.getLogger(LoginServlet.class.getName());
     //private String userID = null;
     //private String password = null;
-    private final String query = "SELECT u.id, u.active, u.password, i.firstname, i.lastname, i.email, g.id, g.name FROM user AS u " +
+    private final String query = "SELECT u.id, u.password, u.active, i.firstname, i.lastname, i.email, g.id, g.name FROM user AS u " +
             "JOIN user_info AS i ON i.user_id = u.id " +
             "JOIN `group` AS g ON u.group_id = g.id " +
             "WHERE u.username = ?";
@@ -67,12 +67,12 @@ public class LoginServlet extends HttpServlet {
                         if (rowcount == 1) {
                             boolean userActive = false;
                             if (rs.next()) {
-                                userActive = rs.getBoolean(2);
+                                userActive = rs.getBoolean(3);
                             }
                             request.getSession().invalidate(); //invalidate current session
                             HttpSession session = request.getSession(true); //create new session ID to prevent hijacking
                             if (userActive) {
-                                String pwdHash = rs.getString(3);
+                                String pwdHash = rs.getString(2);
                                 Argon2 argon2 = Argon2Factory.create(Argon2Factory.Argon2Types.ARGON2id);
                                 boolean pwdCorrect = argon2.verify(pwdHash, pwd);
                                 if (pwdCorrect) {
