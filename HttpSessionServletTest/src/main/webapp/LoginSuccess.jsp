@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html;charset=UTF-8" pageEncoding="UTF-8" session="false" %>
-<%@ page import="dev.fullslack.servlet.security.SessionValidator" %>
+<%@ page import="dev.fullslack.security.SessionValidator" %>
 
 <%
 //allow access only if session exists

@@ -29,8 +29,8 @@ public class CreatePasswordServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String pwd = request.getParameter("pass");
         //byte[] pwd = request.getParameter("pass").getBytes(StandardCharsets.UTF_8);
-        byte[] salt = generateSalt();
-        String saltString = bytesToHex(salt);
+        //byte[] salt = generateSalt();
+        String saltString = bytesToHex(generateSalt());
         //byte[] pwdHash = createPasswordHash(pwd,salt);
         Argon2 argon2 = Argon2Factory.create(Argon2Factory.Argon2Types.ARGON2id);
         String pwdHash = argon2.hash(8, 100 * 1024, 2, pwd);
@@ -65,7 +65,7 @@ public class CreatePasswordServlet extends HttpServlet {
         }
     }
 
-    private byte[] createPasswordHash(byte[] pwd, byte[] salt) {
+    /*private byte[] createPasswordHash(byte[] pwd, byte[] salt) {
         try {
             MessageDigest digest = MessageDigest.getInstance("SHA3-512");
             digest.reset();
@@ -76,7 +76,7 @@ public class CreatePasswordServlet extends HttpServlet {
             LOGGER.error("Error Message Logged !!!",ex.getMessage(),ex);
         }
         return null;
-    }
+    }*/
 
     private byte[] generateSalt() {
         SecureRandom random = new SecureRandom();
@@ -86,7 +86,7 @@ public class CreatePasswordServlet extends HttpServlet {
     }
 
     private String bytesToHex(byte[] hash) {
-        StringBuffer hexString = new StringBuffer();
+        StringBuilder hexString = new StringBuilder();
         for (int i = 0; i < hash.length; i++) {
             String hex = Integer.toHexString(0xff & hash[i]);
             if (hex.length() == 1) {

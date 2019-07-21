@@ -28,15 +28,16 @@ public class LoginServlet extends HttpServlet {
     private static final Logger LOGGER = LogManager.getLogger(LoginServlet.class.getName());
     //private String userID = null;
     //private String password = null;
-    private final String query = "SELECT u.id, u.password, u.active, i.firstname, i.lastname, i.email, g.id, g.name FROM user AS u " +
-            "JOIN user_info AS i ON i.user_id = u.id " +
-            "JOIN `group` AS g ON u.group_id = g.id " +
-            "WHERE u.username = ?";
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String user = request.getParameter("user");
         String pwd = request.getParameter("pwd");
+        String query = "SELECT u.id, u.password, u.active, i.firstname, i.lastname, " +
+                "i.email, g.id, g.name FROM user AS u " +
+                "JOIN user_info AS i ON i.user_id = u.id " +
+                "JOIN `group` AS g ON u.group_id = g.id " +
+                "WHERE u.username = ?";
         //byte[] pwd = request.getParameter("pwd").getBytes(StandardCharsets.UTF_8);
         //byte[] pwdHash = createPasswordHash(user,pwd);
         //debugging section
@@ -59,12 +60,12 @@ public class LoginServlet extends HttpServlet {
                 //pwdHash = new byte[0];
                 ResultSet rs = pst.executeQuery();
                 //ResultSetMetaData md = pst.getMetaData();
-                int rowcount = 0;
+                int rowCount = 0;
                 if (rs != null) {
                     if (rs.last()) {
-                        rowcount = rs.getRow();
+                        rowCount = rs.getRow();
                         rs.beforeFirst();
-                        if (rowcount == 1) {
+                        if (rowCount == 1) {
                             boolean userActive = false;
                             if (rs.next()) {
                                 userActive = rs.getBoolean(3);
@@ -76,8 +77,8 @@ public class LoginServlet extends HttpServlet {
                                 Argon2 argon2 = Argon2Factory.create(Argon2Factory.Argon2Types.ARGON2id);
                                 boolean pwdCorrect = argon2.verify(pwdHash, pwd);
                                 if (pwdCorrect) {
-                                    session.setAttribute("username", user);
                                     session.setAttribute("userid", rs.getInt(1));
+                                    session.setAttribute("username", user);
                                     session.setAttribute("firstname", rs.getString(4));
                                     session.setAttribute("lastname", rs.getString(5));
                                     session.setAttribute("email", rs.getString(6));
@@ -153,7 +154,7 @@ public class LoginServlet extends HttpServlet {
         */
     }
 
-    private byte[] createPasswordHash(String username, byte[] password) {
+    /*private byte[] createPasswordHash(String username, byte[] password) {
         try (Connection con = ConnectionManager.getConnection()) {
             if (con != null) {
                 PreparedStatement pst = con.prepareStatement("SELECT salt FROM user WHERE username = ?");
@@ -199,5 +200,5 @@ public class LoginServlet extends HttpServlet {
             hexString.append(hex);
         }
         return hexString.toString();
-    }
+    }*/
 }
