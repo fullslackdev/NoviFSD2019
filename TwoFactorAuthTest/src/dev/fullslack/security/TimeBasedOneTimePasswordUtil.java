@@ -22,7 +22,7 @@ public class TimeBasedOneTimePasswordUtil {
     }
 
     public static String generateBase32Secret() {
-        return generateBase32Secret(32);
+        return generateBase32Secret(16);
     }
 
     public static String generateBase32Secret(int length) {
