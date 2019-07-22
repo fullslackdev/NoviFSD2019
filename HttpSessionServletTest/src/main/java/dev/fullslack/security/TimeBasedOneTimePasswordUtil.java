@@ -22,7 +22,7 @@ public class TimeBasedOneTimePasswordUtil {
     }
 
     public static String generateBase32Secret() {
-        return generateBase32Secret(32);
+        return generateBase32Secret(16);
     }
 
     public static String generateBase32Secret(int length) {
@@ -108,7 +108,6 @@ public class TimeBasedOneTimePasswordUtil {
     }
 
     public static String qrImageUrl(String keyId, String secret) {
-        //String googleApi = "https://chart.googleapis.com/chart?chs=200x200&cht=qr&chl=200x200&chd=M|0&cht=qr&chl=";
         String googleApi = "https://chart.googleapis.com/chart?cht=qr&chs=200x200&choe=ISO-8859-1&chd=M|0&chl=";
         StringBuilder sb = new StringBuilder(128);
         sb.append(googleApi);

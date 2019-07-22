@@ -7,7 +7,6 @@ import org.apache.logging.log4j.Logger;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -26,7 +25,7 @@ public class ActiveUserValidator {
         session = request.getSession(false);
     }
 
-    public boolean isUserActive() throws IOException {
+    public boolean isUserActive() {
         boolean userActive = false;
         String query = "SELECT active FROM user WHERE id = ? AND username = ?";
         try (Connection con = ConnectionManager.getConnection()) {

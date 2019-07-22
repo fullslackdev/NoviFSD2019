@@ -33,8 +33,9 @@ public class LoginServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String user = request.getParameter("user");
         String pwd = request.getParameter("pwd");
-        String query = "SELECT u.id, u.password, u.active, i.firstname, i.lastname, " +
-                "i.email, g.id, g.name FROM user AS u " +
+        String query = "SELECT u.id, u.password, " +
+                "IF(u.secret IS NULL OR u.secret = '' OR u.salt IS NULL OR u.salt = '', 0, 1) AS secretFilled, " +
+                "u.active, i.firstname, i.lastname, i.email, g.id, g.name FROM user AS u " +
                 "JOIN user_info AS i ON i.user_id = u.id " +
                 "JOIN `group` AS g ON u.group_id = g.id " +
                 "WHERE u.username = ?";
@@ -67,32 +68,42 @@ public class LoginServlet extends HttpServlet {
                         rs.beforeFirst();
                         if (rowCount == 1) {
                             boolean userActive = false;
+                            boolean twoFactorActive = false;
                             if (rs.next()) {
-                                userActive = rs.getBoolean(3);
+                                userActive = rs.getBoolean(4);
+                                twoFactorActive = rs.getBoolean(3);
                             }
-                            request.getSession().invalidate(); //invalidate current session
-                            HttpSession session = request.getSession(true); //create new session ID to prevent hijacking
                             if (userActive) {
                                 String pwdHash = rs.getString(2);
                                 Argon2 argon2 = Argon2Factory.create(Argon2Factory.Argon2Types.ARGON2id);
                                 boolean pwdCorrect = argon2.verify(pwdHash, pwd);
                                 if (pwdCorrect) {
-                                    session.setAttribute("userid", rs.getInt(1));
-                                    session.setAttribute("username", user);
-                                    session.setAttribute("firstname", rs.getString(4));
-                                    session.setAttribute("lastname", rs.getString(5));
-                                    session.setAttribute("email", rs.getString(6));
-                                    session.setAttribute("groupid", rs.getInt(7));
-                                    session.setAttribute("groupname", rs.getString(8));
-                                    //setting session to expire in 30 mins
-                                    //session.setMaxInactiveInterval(30*60);
-                                    //setting session to expire in 60 seconds
-                                    session.setMaxInactiveInterval(60);
-                                    Cookie userName = new Cookie("user", user);
-                                    //userName.setMaxAge(30*60);
-                                    userName.setMaxAge(60);
-                                    response.addCookie(userName);
-                                    response.sendRedirect("LoginSuccess.jsp");
+                                    request.getSession().invalidate(); //invalidate current session
+                                    HttpSession session = request.getSession(true); //create new session ID to prevent hijacking
+                                    if (twoFactorActive) {
+                                        session.setAttribute("tempid", rs.getInt(1));
+                                        session.setAttribute("tempuser", user);
+                                        //setting session to expire in 60 seconds
+                                        session.setMaxInactiveInterval(60);
+                                        response.sendRedirect("2falogin.html");
+                                    } else {
+                                        session.setAttribute("userid", rs.getInt(1));
+                                        session.setAttribute("username", user);
+                                        session.setAttribute("firstname", rs.getString(5));
+                                        session.setAttribute("lastname", rs.getString(6));
+                                        session.setAttribute("email", rs.getString(7));
+                                        session.setAttribute("groupid", rs.getInt(8));
+                                        session.setAttribute("groupname", rs.getString(9));
+                                        //setting session to expire in 30 mins
+                                        //session.setMaxInactiveInterval(30*60);
+                                        //setting session to expire in 60 seconds
+                                        session.setMaxInactiveInterval(60);
+                                        Cookie userCookie = new Cookie("user", user);
+                                        //userName.setMaxAge(30*60);
+                                        userCookie.setMaxAge(60);
+                                        response.addCookie(userCookie);
+                                        response.sendRedirect("LoginSuccess.jsp");
+                                    }
                                 } else {
                                     RequestDispatcher rd = getServletContext().getRequestDispatcher("/login.html");
                                     PrintWriter writer = response.getWriter();

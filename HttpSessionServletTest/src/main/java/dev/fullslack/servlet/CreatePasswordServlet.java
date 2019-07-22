@@ -4,6 +4,8 @@ import de.mkammerer.argon2.Argon2;
 import de.mkammerer.argon2.Argon2Factory;
 import de.mkammerer.argon2.Argon2Helper;
 import dev.fullslack.db.ConnectionManager;
+import dev.fullslack.security.TOTPSecretUtil;
+import dev.fullslack.security.TimeBasedOneTimePasswordUtil;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -27,14 +29,18 @@ public class CreatePasswordServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        TOTPSecretUtil secretUtil = new TOTPSecretUtil();
         String pwd = request.getParameter("pass");
         //byte[] pwd = request.getParameter("pass").getBytes(StandardCharsets.UTF_8);
         //byte[] salt = generateSalt();
-        String saltString = bytesToHex(generateSalt());
+        //String saltString = bytesToHex(generateSalt());
+        String secretKeySpec = secretUtil.createSecretKeySpec();
+        String base32Secret = TimeBasedOneTimePasswordUtil.generateBase32Secret(32);
+        String encryptedBase32Secret = secretUtil.encrypt(base32Secret, secretKeySpec);
         //byte[] pwdHash = createPasswordHash(pwd,salt);
         Argon2 argon2 = Argon2Factory.create(Argon2Factory.Argon2Types.ARGON2id);
         String pwdHash = argon2.hash(8, 100 * 1024, 2, pwd);
-        String query = "UPDATE user SET password = ?, salt = ? WHERE username = ?";
+        String query = "UPDATE user SET password = ?, salt = ?, secret = ? WHERE username = ?";
 
         /*Argon2 argon2 = Argon2Factory.create(Argon2Factory.Argon2Types.ARGON2id);
         int iterations1 = Argon2Helper.findIterations(argon2, 1000, 100 * 1024, 2);
@@ -52,8 +58,9 @@ public class CreatePasswordServlet extends HttpServlet {
                 //pst.setBytes(2,salt);
                 //pst.setBytes(3, pwd);
                 pst.setString(1, pwdHash);
-                pst.setString(2, saltString);
-                pst.setString(3, pwd);
+                pst.setString(2, secretKeySpec);
+                pst.setString(3, encryptedBase32Secret);
+                pst.setString(4, pwd);
                 //pwdHash = new byte[0];
                 //salt = new byte[0];
                 //pwd = new byte[0];
@@ -78,7 +85,7 @@ public class CreatePasswordServlet extends HttpServlet {
         return null;
     }*/
 
-    private byte[] generateSalt() {
+    /*private byte[] generateSalt() {
         SecureRandom random = new SecureRandom();
         byte[] bytes = new byte[20];
         random.nextBytes(bytes);
@@ -95,5 +102,5 @@ public class CreatePasswordServlet extends HttpServlet {
             hexString.append(hex);
         }
         return hexString.toString();
-    }
+    }*/
 }
