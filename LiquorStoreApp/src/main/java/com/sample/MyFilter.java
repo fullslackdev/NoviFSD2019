@@ -14,6 +14,7 @@ public class MyFilter implements Filter {
         HttpServletResponse httpServletResponse = (HttpServletResponse) response;
         httpServletResponse.setHeader("Content-Security-Policy", "default-src 'self'");
         httpServletResponse.setHeader("Referrer-Policy", "no-referrer");
+        httpServletResponse.setHeader("Feature-Policy", "camera 'none'");
 
         chain.doFilter(request, response);
     }
