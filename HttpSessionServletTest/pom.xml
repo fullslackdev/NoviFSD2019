@@ -48,6 +48,9 @@
                     <url>http://localhost:8080/manager/text</url>
                     <username>admin</username>
                     <password>admin@1234</password>
+                    <!--<url>https://novi.hopto.org:8443/manager/text</url>
+                    <username>intellij</username>
+                    <password>admin@1234</password>-->
                 </configuration>
             </plugin>
             <plugin> <!-- Plugin needed to compile using Maven builder -->

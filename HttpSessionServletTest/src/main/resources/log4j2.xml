@@ -4,8 +4,8 @@
     <!-- Logging Properties -->
     <Properties>
         <Property name="LOG_PATTERN">%d{yyyy-MM-dd'T'HH:mm:ss.SSSZ} %p %m%n</Property>
-        <Property name="APP_LOG_ROOT">c:/temp/logs</Property>
-        <!--<Property name="APP_LOG_ROOT">${web:rootDir}</Property>-->
+        <!--<Property name="APP_LOG_ROOT">c:/temp/logs</Property>-->
+        <Property name="APP_LOG_ROOT">${sys:catalina.home}/logs/log4j2</Property>
     </Properties>
 
     <Appenders>

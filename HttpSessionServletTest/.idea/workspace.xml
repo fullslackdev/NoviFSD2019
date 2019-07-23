@@ -18,32 +18,47 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/pom.xml">
           <provider selected="true" editor-type-id="text-editor">
-            <state>
-              <caret line="37" column="21" selection-start-line="37" selection-start-column="21" selection-end-line="37" selection-end-column="21" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/dev/fullslack/servlet/session/LoginServlet.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="306">
-              <caret line="102" column="50" selection-start-line="102" selection-start-column="50" selection-end-line="102" selection-end-column="50" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
+            <state relative-caret-position="312">
+              <caret line="52" column="54" selection-start-line="52" selection-start-column="54" selection-end-line="52" selection-end-column="54" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/main/java/dev/fullslack/servlet/session/TwoFactorServlet.java">
+        <entry file="file://$PROJECT_DIR$/src/main/webapp/login.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="153">
-              <caret line="78" column="29" selection-start-line="78" selection-start-column="29" selection-end-line="78" selection-end-column="29" />
+            <state relative-caret-position="136">
+              <caret line="8" column="87" selection-start-line="8" selection-start-column="87" selection-end-line="8" selection-end-column="87" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/resources/db.properties">
+          <provider selected="true" editor-type-id="text-editor">
+            <state>
+              <caret column="32" selection-start-column="32" selection-end-column="32" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/dev/fullslack/security/HttpHeaderFilter.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="256">
+              <caret line="18" column="42" selection-start-line="18" selection-start-column="42" selection-end-line="18" selection-end-column="42" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/dev/fullslack/servlet/session/TwoFactorServlet.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="153">
+              <caret line="9" column="38" selection-start-line="9" selection-start-column="38" selection-end-line="9" selection-end-column="38" />
             </state>
           </provider>
         </entry>
@@ -51,7 +66,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/dev/fullslack/servlet/CreatePasswordServlet.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="136">
+            <state relative-caret-position="289">
               <caret line="38" column="87" selection-start-line="38" selection-start-column="87" selection-end-line="38" selection-end-column="87" />
               <folding>
                 <element signature="imports" expanded="true" />
@@ -63,7 +78,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/dev/fullslack/security/TOTPSecretUtil.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="289">
+            <state relative-caret-position="1632">
               <caret line="109" column="22" selection-start-line="109" selection-start-column="22" selection-end-line="109" selection-end-column="22" />
               <folding>
                 <element signature="imports" expanded="true" />
@@ -86,7 +101,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/dev/fullslack/security/SessionValidator.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="233">
+            <state relative-caret-position="1853">
               <caret line="117" column="40" selection-start-line="117" selection-start-column="40" selection-end-line="117" selection-end-column="40" />
               <folding>
                 <element signature="imports" expanded="true" />
@@ -124,18 +139,13 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/main/resources/log4j2.xml" />
         <option value="$PROJECT_DIR$/src/main/java/dev/fullslack/MySpecialListener.java" />
-        <option value="$PROJECT_DIR$/src/main/webapp/login.html" />
-        <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/web.xml" />
         <option value="$PROJECT_DIR$/src/main/java/dev/fullslack/servlet/session/LogoutServlet.java" />
         <option value="$PROJECT_DIR$/src/main/webapp/cookie.html" />
         <option value="$PROJECT_DIR$/src/main/java/dev/fullslack/db/DatabaseProperties.java" />
         <option value="$PROJECT_DIR$/src/main/java/dev/fullslack/db/DatabaseConnector.java" />
         <option value="$PROJECT_DIR$/src/main/java/dev/fullslack/db/ConnectionManager.java" />
-        <option value="$PROJECT_DIR$/src/main/resources/db.properties" />
         <option value="$PROJECT_DIR$/src/main/java/dev/fullslack/servlet/security/TimeBasedOneTimePasswordUtil.java" />
-        <option value="$PROJECT_DIR$/pom.xml" />
         <option value="$PROJECT_DIR$/src/main/java/dev/fullslack/servlet/security/SessionValidator.java" />
         <option value="$PROJECT_DIR$/src/main/webapp/LoginSuccess.jsp" />
         <option value="$PROJECT_DIR$/src/main/java/dev/fullslack/security/SessionValidator.java" />
@@ -146,6 +156,12 @@
         <option value="$PROJECT_DIR$/src/main/java/dev/fullslack/security/TOTPSecretUtil.java" />
         <option value="$PROJECT_DIR$/src/main/java/dev/fullslack/servlet/session/LoginServlet.java" />
         <option value="$PROJECT_DIR$/src/main/java/dev/fullslack/servlet/session/TwoFactorServlet.java" />
+        <option value="$PROJECT_DIR$/src/main/resources/log4j2.xml" />
+        <option value="$PROJECT_DIR$/src/main/java/dev/fullslack/security/HttpHeaderFilter.java" />
+        <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/web.xml" />
+        <option value="$PROJECT_DIR$/pom.xml" />
+        <option value="$PROJECT_DIR$/src/main/resources/db.properties" />
+        <option value="$PROJECT_DIR$/src/main/webapp/login.html" />
       </list>
     </option>
   </component>
@@ -161,7 +177,6 @@
     </navigator>
     <panes>
       <pane id="Scope" />
-      <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -248,12 +263,21 @@
             </path>
             <path>
               <item name="HttpSessionServletTest" type="b2602c69:ProjectViewProjectNode" />
+              <item name="HttpSessionServletTest" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="webapp" type="462c0819:PsiDirectoryNode" />
+              <item name="WEB-INF" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="HttpSessionServletTest" type="b2602c69:ProjectViewProjectNode" />
               <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
             </path>
           </expand>
           <select />
         </subPane>
       </pane>
+      <pane id="PackagesPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -318,7 +342,7 @@
   <component name="ToolWindowManager">
     <frame x="68" y="20" width="1400" height="784" extended-state="0" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.2716418" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.28955224" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Image Layers" order="2" />
       <window_info id="Designer" order="3" />
@@ -373,32 +397,11 @@
     </layout-to-restore>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/main/resources/log4j2.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1870">
-          <caret line="110" column="16" selection-start-line="110" selection-start-column="16" selection-end-line="110" selection-end-column="16" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/dev/fullslack/servlet/session/HttpSessionTestServlet.java" />
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/web.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="289">
-          <caret line="17" column="20" selection-start-line="17" selection-start-column="20" selection-end-line="17" selection-end-column="20" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/webapp/cookie.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="170">
           <caret line="10" column="36" selection-start-line="10" selection-start-column="36" selection-end-line="10" selection-end-column="36" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/db.properties">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="17">
-          <caret line="1" column="19" selection-start-line="1" selection-start-column="19" selection-end-line="1" selection-end-column="19" />
         </state>
       </provider>
     </entry>
@@ -442,20 +445,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/pom.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret line="37" column="21" selection-start-line="37" selection-start-column="21" selection-end-line="37" selection-end-column="21" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/login.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="85">
-          <caret line="5" column="7" lean-forward="true" selection-start-line="5" selection-start-column="7" selection-end-line="5" selection-end-column="7" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/webapp/2falogin.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="170">
@@ -480,10 +469,56 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/dev/fullslack/security/ActiveUserValidator.java">
+    <entry file="file://$PROJECT_DIR$/src/main/resources/log4j2.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="136">
-          <caret line="8" column="38" selection-start-line="8" selection-start-column="38" selection-end-line="8" selection-end-column="38" />
+        <state relative-caret-position="119">
+          <caret line="7" column="64" selection-start-line="7" selection-start-column="64" selection-end-line="7" selection-end-column="64" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/web.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="216">
+          <caret line="25" column="20" lean-forward="true" selection-start-line="25" selection-start-column="20" selection-end-line="25" selection-end-column="20" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/dev/fullslack/servlet/session/LoginServlet.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1445">
+          <caret line="102" column="50" selection-start-line="102" selection-start-column="50" selection-end-line="102" selection-end-column="50" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/dev/fullslack/servlet/session/TwoFactorServlet.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="153">
+          <caret line="9" column="38" selection-start-line="9" selection-start-column="38" selection-end-line="9" selection-end-column="38" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/dev/fullslack/servlet/CreatePasswordServlet.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="289">
+          <caret line="38" column="87" selection-start-line="38" selection-start-column="87" selection-end-line="38" selection-end-column="87" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/dev/fullslack/security/TOTPSecretUtil.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1632">
+          <caret line="109" column="22" selection-start-line="109" selection-start-column="22" selection-end-line="109" selection-end-column="22" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#5159#5160#0" expanded="true" />
+            <element signature="e#5206#5207#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -496,7 +531,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/dev/fullslack/security/SessionValidator.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="233">
+        <state relative-caret-position="1853">
           <caret line="117" column="40" selection-start-line="117" selection-start-column="40" selection-end-line="117" selection-end-column="40" />
           <folding>
             <element signature="imports" expanded="true" />
@@ -504,45 +539,41 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/dev/fullslack/security/TOTPSecretUtil.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="289">
-          <caret line="109" column="22" selection-start-line="109" selection-start-column="22" selection-end-line="109" selection-end-column="22" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#5159#5160#0" expanded="true" />
-            <element signature="e#5206#5207#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/dev/fullslack/servlet/CreatePasswordServlet.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/dev/fullslack/security/ActiveUserValidator.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="136">
-          <caret line="38" column="87" selection-start-line="38" selection-start-column="87" selection-end-line="38" selection-end-column="87" />
+          <caret line="8" column="38" selection-start-line="8" selection-start-column="38" selection-end-line="8" selection-end-column="38" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/dev/fullslack/security/HttpHeaderFilter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="256">
+          <caret line="18" column="42" selection-start-line="18" selection-start-column="42" selection-end-line="18" selection-end-column="42" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/dev/fullslack/servlet/session/LoginServlet.java">
+    <entry file="file://$PROJECT_DIR$/pom.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="306">
-          <caret line="102" column="50" selection-start-line="102" selection-start-column="50" selection-end-line="102" selection-end-column="50" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
+        <state relative-caret-position="312">
+          <caret line="52" column="54" selection-start-line="52" selection-start-column="54" selection-end-line="52" selection-end-column="54" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/dev/fullslack/servlet/session/TwoFactorServlet.java">
+    <entry file="file://$PROJECT_DIR$/src/main/resources/db.properties">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="153">
-          <caret line="78" column="29" selection-start-line="78" selection-start-column="29" selection-end-line="78" selection-end-column="29" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
+        <state>
+          <caret column="32" selection-start-column="32" selection-end-column="32" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/login.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="136">
+          <caret line="8" column="87" selection-start-line="8" selection-start-column="87" selection-end-line="8" selection-end-column="87" />
         </state>
       </provider>
     </entry>

@@ -18,4 +18,13 @@
             <name>ID</name>
         </cookie-config>
     </session-config>
+
+    <filter>
+        <filter-name>HttpHeaderFilter</filter-name>
+        <filter-class>dev.fullslack.security.HttpHeaderFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>HttpHeaderFilter</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
 </web-app>
