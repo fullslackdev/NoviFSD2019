@@ -7,13 +7,135 @@
     <link rel="icon" type="image/png" sizes="32x32" href="resources/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="96x96" href="resources/favicon-96x96.png">
     <link rel="icon" type="image/png" sizes="16x16" href="resources/favicon-16x16.png">
+    <link rel="stylesheet" href="resources/bootstrap.min.css">
+    <style>
+    /* when creating message and limit has reached, change color of error message */
+    .msgCharLimitColor {
+        color: red !important;
+        font-weight: bold;
+    }
+    </style>
 </head>
 <body>
+<nav class="navbar navbar-expand-md bg-dark navbar-dark sticky-top">
+    <a class="navbar-brand" href="index.html">DJ Don Diablo</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="collapsibleNavbar">
+        <ul class="navbar-nav">
+            <li class="nav-item">
+                <a class="nav-link disabled" href="#">Registration</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">Comment</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">Upload</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="login.html">Login</a>
+            </li>
+        </ul>
+    </div>
+</nav>
 
-    <form action="LoginServlet" method="post">
-        Username: <input type="text" name="user"><br>
-        Password: <input type="password" name="pwd"><br>
-        <input type="submit" value="Login">
-    </form>
+<div class="container py-5">
+    <div class="row">
+        <div class="offset-md-3 col-md-6 offset-md-3">
+            <div class="card">
+                <div class="card-header bg-info text-white">
+                    <h4 class="card-title text-uppercase mt-1 mb-1">Login</h4>
+                </div>
+                <div class="card-body">
+                    <form id="login_form" class="needs-validation"  method="post" novalidate>
+                        <div class="row">
+                            <div class="col-lg-8 col-md-10 col-sm-8 col-xs-12">
+                                <div class="form-group">
+                                    <label for="username">Username</label>
+                                    <input type="text" id="username" name="user" placeholder="Username" class="form-control" required />
+                                    <div class="invalid-feedback">
+                                        Please enter username.
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-8 col-md-10 col-sm-8 col-xs-12">
+                                <div class="form-group">
+                                    <label for="password">Password</label>
+                                    <input type="password" id="password" name="pwd" placeholder="Password" class="form-control" required />
+                                    <div class="invalid-feedback">
+                                        Please enter your password.
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                <div class="float-left">
+                                    <a class="text-warning" href="#">Forget password</a>
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                <div class="float-right">
+                                    <button id="login_button" class="btn btn-info rounded-1" type="submit" disabled>Login</button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script src="resources/jquery.slim.min.js"></script>
+<script src="resources/popper.min.js"></script>
+<script src="resources/bootstrap.min.js"></script>
+<script>
+    $(document).ready(function() {
+        (function () {
+            'use strict';
+            var form = document.getElementById('login_form');
+            form.addEventListener('change', function (event) {
+                if (form.checkValidity() === false) {
+                    event.preventDefault();
+                    event.stopPropagation();
+					document.getElementById('login_button').setAttribute('disabled', 'disabled');
+                } else {
+					document.getElementById('login_button').removeAttribute('disabled');
+				}
+                form.classList.add('was-validated');
+            }, false);
+        })();
+
+        $("#invalidCheck").click( function () {
+            if ($( '#invalidCheck' ).prop( 'checked')) {
+                $( '#register_btn' ).prop( 'disabled', false );
+            } else {
+                $( '#register_btn' ).prop( 'disabled', true );
+            }
+        });
+
+        $('#msgCharsLeft').text('32 characters left');
+        $("#address").keyup( function () {
+            const maxChars = 32;
+            var msgLength = $(this).val().length;
+
+            if ( msgLength >= maxChars ) {
+                $('#msgCharsLeft').text('You have reached the limit of ' + maxChars + ' characters.');
+                // change the color of the message (to red)
+                $('#msgCharsLeft').addClass('msgCharLimitColor'); // this class is style.css
+            } else {
+                var left = maxChars - msgLength;
+                $('#msgCharsLeft').text( left + ' character' + (left>1?'s':'') + ' left' );
+                $('#msgCharsLeft').removeClass('msgCharLimitColor');
+            }
+        } );
+    });
+    </script>
+
 </body>
 </html>
