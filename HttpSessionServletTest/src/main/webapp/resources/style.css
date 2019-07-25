@@ -1,0 +1,24 @@
+body, html {
+	height: 100%;
+}
+/* when creating message and limit has reached, change color of error message */
+.msgCharLimitColor {
+	color: red !important;
+	font-weight: bold;
+}
+/* Hexagon SVG logo background */
+.bgHexagonLogo {
+	background-image: url("../images/hexagon.svg");
+	height: 100%;
+	background-position: center;
+	background-repeat: no-repeat;
+	background-size: contain;
+}
+/* Background image scraped from HexagonHQ website, display as full cover background */
+.bgMainLogo {
+	background-image: url("../images/bkk4k.jpg");
+	height: 100%;
+	background-position: center;
+	background-repeat: no-repeat;
+	background-size: cover;
+}
