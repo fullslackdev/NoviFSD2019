@@ -3,12 +3,77 @@
 <head>
     <meta charset="UTF-8">
     <title>Two Factor Authentication(2FA) Page</title>
+    <link rel="icon" type="image/png" sizes="192x192" href="images/android-icon-192x192.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="images/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="96x96" href="images/favicon-96x96.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="images/favicon-16x16.png">
+    <link rel="stylesheet" href="resources/bootstrap.min.css">
+	<link rel="stylesheet" href="resources/style.css">
 </head>
 <body>
+<div class="bgMainLogo">
+	<nav class="navbar navbar-expand-md bg-dark navbar-dark sticky-top">
+		<a class="navbar-brand" href="#">DJ Don Diablo</a>
+		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+			<span class="navbar-toggler-icon"></span>
+		</button>
+		<div class="collapse navbar-collapse" id="collapsibleNavbar">
+			<ul class="navbar-nav">
+				<li class="nav-item">
+					<a class="nav-link disabled" href="#">Registration</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link disabled" href="#">Comment</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link disabled" href="#">Upload</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" href="2falogin.html">Two Factor Auth</a>
+				</li>
+			</ul>
+		</div>
+	</nav>
+	
+	<div class="container py-5">
+		<div class="row">
+			<div class="offset-md-3 col-md-6 offset-md-3">
+				<div class="card bgHexagonLogo text-white bg-secondary">
+					<div class="card-header bg-dark text-white">
+						<h4 class="card-title text-uppercase mt-1 mb-1">Two Factor Authentication</h4>
+					</div>
+					<div class="card-body">
+						<form id="login_form" class="needs-validation" action="TwoFactorServlet" method="post" novalidate>
+							<div class="row">
+								<div class="col-lg-6 col-md-8 col-sm-6 col-xs-12">
+									<div class="form-group">
+										<label for="username">Code (6-digit number)</label>
+										<input type="text" class="form-control" id="username" name="code" pattern="^\d{6}$" maxlength="6" placeholder="123456" required />
+										<div class="invalid-feedback">
+											Please enter a 6-digit number code.
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-md-12 col-sm-12 col-xs-12">
+									<div class="float-right bg-secondary">
+										<button id="login_button" class="btn btn-dark rounded-1" type="submit" disabled>Authenticate</button>
+									</div>
+								</div>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
 
-<form action="TwoFactorServlet" method="post">
-    Code (6 digit number): <input type="text" name="code"><br>
-    <input type="submit" value="Authenticate">
-</form>
+<script src="resources/jquery.slim.min.js"></script>
+<script src="resources/popper.min.js"></script>
+<script src="resources/bootstrap.min.js"></script>
+<script src="resources/javascript.js"></script>
+
 </body>
 </html>
