@@ -12,9 +12,12 @@ public class HttpHeaderFilter implements Filter {
     public void doFilter(ServletRequest request, ServletResponse response,
                          FilterChain chain) throws ServletException, IOException {
         HttpServletResponse httpServletResponse = (HttpServletResponse) response;
-        httpServletResponse.setHeader("Content-Security-Policy", "default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data: https://www.w3.com; object-src 'none'; form-action 'self'");
+        httpServletResponse.setHeader("Content-Security-Policy", "default-src 'self'; script-src 'self'; " +
+                "style-src 'self' 'unsafe-inline'; img-src 'self' data: https://www.w3.com; object-src 'none'; " +
+                "form-action 'self'");
         httpServletResponse.setHeader("Referrer-Policy", "no-referrer");
-        httpServletResponse.setHeader("Feature-Policy", "camera 'none'");
+        httpServletResponse.setHeader("Feature-Policy", "autoplay 'none'; camera 'none'; encrypted-media 'none'; " +
+                "fullscreen 'self'; geolocation 'self'; microphone 'none'; midi 'none'; payment 'none'");
 
         chain.doFilter(request, response);
     }
