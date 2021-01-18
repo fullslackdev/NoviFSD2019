@@ -1,14 +1,22 @@
 # JavaTest
 
-**Contents of repository**
+**_IMPORTANT NOTICE_**  
+This repository will be in archive mode due to the large numbers of deprecations and bugs found in some parts of the code.
+Please allow some time for me to clean up this code and restore the repository.
+- [X] Put repository in archive mode
+- [ ] Clean up code and move away from buggy implementations
+- [ ] Reload/drop code into/from repository
+- [ ] Restore repository from archive mode
+
+**Contents of repository**  
 This repository contains all the applications and servlets created during classes or for testing purposes during the first NOVI Bootcamp for Full Stack Developers, which started in May 2019.
 
-**License**
+**License**  
 Everything in this repository can be used for education and testing purposes only. No code can be used in production, commercial or even graded assignments without contacting the author.
 
 ## Folder description
 
-**_Please note_**
+**_Please note_**  
 Unless explicitly mentioned all database connections are made with MariaDB or MySQL. Check *connection URL* and/or *pom.xml files* for details on connection and loaded dependencies.
 All database connections are made non persistent, meaning they are closed after each SQL query.
 
